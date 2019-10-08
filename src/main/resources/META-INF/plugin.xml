@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>com.dandoh.favorite-actions</id>
+    <name>Plugin display name here</name>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+
+    <depends>com.intellij.modules.lang</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <toolWindow id="dumb tool window" secondary="false" anchor="left" factoryClass="toolwindows.DumbWindowFactory"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="action.DumbAction" class="action.DumbAction" text="Dumb Action"/>
+    </actions>
+</idea-plugin>
