@@ -13,8 +13,9 @@
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-<!--        <toolWindow id="dumb tool window" secondary="false" anchor="left" factoryClass="toolwindows.DumbWindowFactory"/>-->
-<!--        <appStarter implementation="extension.DumbAppStarterExtension"/>-->
+        <!--        <toolWindow id="dumb tool window" secondary="false" anchor="left" factoryClass="toolwindows.DumbWindowFactory"/>-->
+        <!--        <appStarter implementation="extension.DumbAppStarterExtension"/>-->
+        <projectService id="SavedActionsService" serviceImplementation="services.SavedActionsService"/>
     </extensions>
 
     <actions>
@@ -22,9 +23,4 @@
         <action id="action.DumbAction" class="action.DumbAction" text="Dumb Action"/>
     </actions>
 
-    <project-components>
-        <component>
-            <implementation-class>components.SavedActionsComponent</implementation-class>
-        </component>
-    </project-components>
 </idea-plugin>
