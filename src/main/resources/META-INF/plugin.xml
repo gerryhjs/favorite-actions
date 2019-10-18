@@ -12,15 +12,12 @@
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <!--        <toolWindow id="dumb tool window" secondary="false" anchor="left" factoryClass="toolwindows.DumbWindowFactory"/>-->
-        <!--        <appStarter implementation="extension.DumbAppStarterExtension"/>-->
         <projectService id="SavedActionsService" serviceImplementation="services.SavedActionsService"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="action.DumbAction" class="action.DumbAction" text="Dumb Action"/>
+        <action id="actions.SelectActionAction" class="actions.SelectActionAction" text="Select Action"/>
     </actions>
 
 </idea-plugin>
