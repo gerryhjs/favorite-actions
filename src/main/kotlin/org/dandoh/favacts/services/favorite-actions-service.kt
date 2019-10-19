@@ -1,4 +1,4 @@
-package services
+package org.dandoh.favacts.services
 
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.ServiceManager
@@ -6,8 +6,9 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
+import org.dandoh.favacts.utils.isAction
+import org.jdesktop.swingx.action.ActionManager
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 typealias ActionId = String
@@ -37,6 +38,7 @@ class FavoriteActionsService : PersistentStateComponent<FavoriteActionsService.D
 
   override fun loadState(state: Data) {
     XmlSerializerUtil.copyBean(state, data);
+    data.actionIds = data.actionIds.filter { isAction(it) }.toMutableList()
   }
 
 
@@ -67,6 +69,7 @@ class FavoriteActionsService : PersistentStateComponent<FavoriteActionsService.D
    * Service
    */
   fun addNewAction(actionId: ActionId) {
+    if (!isAction(actionId)) return;
     // append to the list
     data.actionIds.add(0, actionId)
     // remove duplicate without changing order

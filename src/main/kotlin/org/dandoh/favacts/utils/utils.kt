@@ -1,8 +1,10 @@
-package utils
+package org.dandoh.favacts.utils
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.SimpleColoredComponent
+import org.dandoh.favacts.services.ActionId
+import org.jdesktop.swingx.action.ActionManager
 import java.awt.BorderLayout
 import java.awt.Font
 import java.util.logging.Logger
@@ -65,3 +67,8 @@ fun calcFreeSpace(list: JList<*>, panel: JPanel, nameComponent: SimpleColoredCom
 fun updateUI(updater: () -> Unit) {
   ApplicationManager.getApplication().invokeLater(updater)
 }
+
+fun isAction(actionId: ActionId) : Boolean {
+  return ActionManager.getInstance().getAction(actionId) != null
+}
+

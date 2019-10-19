@@ -1,10 +1,8 @@
-package toolwindows
+package org.dandoh.favacts.toolwindows
 
-import actions.AddActionToFavoritesAction
+import org.dandoh.favacts.actions.AddActionToFavoritesAction
 import com.intellij.ide.util.gotoByName.GotoActionModel.defaultActionForeground
 import com.intellij.openapi.actionSystem.ActionManager
-import com.intellij.openapi.actionSystem.ActionPlaces
-import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.keymap.KeymapUtil
 import com.intellij.openapi.project.DumbAware
@@ -13,7 +11,6 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.openapi.wm.ex.ToolWindowEx
-import com.intellij.openapi.wm.ex.ToolWindowManagerEx
 import com.intellij.ui.CollectionListModel
 import com.intellij.ui.SimpleColoredComponent
 import com.intellij.ui.SimpleTextAttributes
@@ -23,10 +20,10 @@ import com.intellij.ui.components.JBList
 import com.intellij.ui.content.ContentFactory
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UIUtil
-import services.ActionId
-import services.FavoriteActionsService
-import utils.cutName
-import utils.updateUI
+import org.dandoh.favacts.services.ActionId
+import org.dandoh.favacts.services.FavoriteActionsService
+import org.dandoh.favacts.utils.cutName
+import org.dandoh.favacts.utils.updateUI
 import java.awt.BorderLayout
 import java.awt.Component
 import javax.swing.JList

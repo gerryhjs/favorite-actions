@@ -1,28 +1,31 @@
 <idea-plugin>
-    <id>com.dandoh.favorite-actions</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>Favorite Actions</id>
+    <name>Favorite Actions</name>
+    <vendor email="dainhan605@gmail.com" url="https://github.com/dandoh">Dandoh</vendor>
 
     <description>
-        NOOOOOOOOOOOOOOOOOOOO
-        NOOOOOOOOOOOOOOOOOOOO
+        Tired of remember keybindings but too lazy to search for the action? Let's have a collection of your favorite
+        IDE Actions
+        and choose from it.
     </description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <projectService id="FavoriteActionsService" serviceImplementation="services.FavoriteActionsService"/>
+        <projectService id="FavoriteActionsService"
+                        serviceImplementation="org.dandoh.favacts.services.FavoriteActionsService"/>
         <toolWindow id="Favorite Actions"
                     icon="PluginIcons.ICON_HEART"
                     anchor="right"
                     secondary="true"
-                    factoryClass="toolwindows.FavoriteActionsToolWindowFactory"/>
+                    factoryClass="org.dandoh.favacts.toolwindows.FavoriteActionsToolWindowFactory"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="actions.AddActionToFavoritesAction" class="actions.AddActionToFavoritesAction"
+        <action id="org.dandoh.favacts.actions.AddActionToFavoritesAction"
+                class="org.dandoh.favacts.actions.AddActionToFavoritesAction"
                 text="Favorite Actions: Select Action">
             <keyboard-shortcut first-keystroke="ctrl 3" keymap="$default"/>
         </action>

@@ -1,4 +1,4 @@
-package actions
+package org.dandoh.favacts.actions
 
 import com.intellij.ide.actions.GotoActionBase
 import com.intellij.ide.util.gotoByName.ChooseByNamePopup
