@@ -18,7 +18,6 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.util.ui.UIUtil
-import utils.IDELOG
 import java.util.*
 import javax.swing.SwingConstants
 
@@ -34,6 +33,10 @@ fun selectIDEAction(e: AnActionEvent, callback: (AnAction) -> Unit) {
  */
 private class SelectActionBase(val actionSelectedCallback: (AnAction) -> Unit) : GotoActionBase(), DumbAware {
 
+  override fun actionPerformed(e: AnActionEvent) {
+    if (javaClass == myInAction) return
+    super.actionPerformed(e)
+  }
   private fun getElementAction(element: Any?): AnAction? {
     if (element is GotoActionModel.MatchedValue) {
       when (val value = element.value) {
@@ -51,7 +54,7 @@ private class SelectActionBase(val actionSelectedCallback: (AnAction) -> Unit) :
   }
 
   public override fun gotoActionPerformed(e: AnActionEvent) {
-    val project = e.project
+    val project = e.project ?: return
     val component = e.getData(PlatformDataKeys.CONTEXT_COMPONENT)
     val editor = e.getData(CommonDataKeys.EDITOR)
 
@@ -63,11 +66,11 @@ private class SelectActionBase(val actionSelectedCallback: (AnAction) -> Unit) :
   }
 
 
-  private fun createPopup(project: Project?,
+  private fun createPopup(project: Project,
                           model: GotoActionModel,
                           initialText: String,
                           initialIndex: Int): ChooseByNamePopup {
-    val oldPopup = project?.getUserData(ChooseByNamePopup.CHOOSE_BY_NAME_POPUP_IN_PROJECT_KEY)
+    val oldPopup = project.getUserData(ChooseByNamePopup.CHOOSE_BY_NAME_POPUP_IN_PROJECT_KEY)
     oldPopup?.close(false)
     val disposable = Disposer.newDisposable()
     val popup = object : ChooseByNamePopup(project, model, GotoActionItemProvider(model),
@@ -127,7 +130,5 @@ private class SelectActionBase(val actionSelectedCallback: (AnAction) -> Unit) :
     return popup
   }
 
-  override fun requiresProject(): Boolean {
-    return true
-  }
+  override fun requiresProject(): Boolean = true
 }

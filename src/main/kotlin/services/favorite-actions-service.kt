@@ -72,10 +72,8 @@ class FavoriteActionsService : PersistentStateComponent<FavoriteActionsService.D
     // remove duplicate without changing order
     val set = TreeSet<ActionId>()
     data.actionIds = data.actionIds
-        .filterNot {
-          val exist = set.contains(it)
-          set.add(actionId)
-          exist
+        .filterNot { id ->
+          (id in set).also { set.add(id) }
         }.toMutableList()
 
     notifyListeners()
