@@ -8,18 +8,18 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import java.util.logging.Logger
 
 class SavedActionsData {
-    var actionIds : List<String> = listOf()
+  var actionIds: List<String> = listOf()
 }
 
 @State(name = "SavedActionsData", storages = [Storage("SavedActionsData.xml")])
-class SavedActionsService : PersistentStateComponent<SavedActionsData> {
-    var savedActionsData = SavedActionsData();
-    override fun getState(): SavedActionsData? {
-        return savedActionsData
-    }
+class FavoriteActionsService : PersistentStateComponent<SavedActionsData> {
+  var savedActionsData = SavedActionsData();
+  override fun getState(): SavedActionsData? {
+    return savedActionsData
+  }
 
-    override fun loadState(state: SavedActionsData) {
-        XmlSerializerUtil.copyBean(state, savedActionsData);
-    }
+  override fun loadState(state: SavedActionsData) {
+    XmlSerializerUtil.copyBean(state, savedActionsData);
+  }
 }
 

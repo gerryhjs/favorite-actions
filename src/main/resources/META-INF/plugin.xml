@@ -12,12 +12,18 @@
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <projectService id="SavedActionsService" serviceImplementation="services.SavedActionsService"/>
+        <projectService id="FavoriteActionsService" serviceImplementation="services.FavoriteActionsService"/>
+        <toolWindow id="Favorite Actions"
+                    icon="PluginIcons.ICON_HEART"
+                    anchor="right"
+                    secondary="true"
+                    factoryClass="toolwindows.FavoriteActionsToolWindowFactory"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="actions.SelectActionAction" class="actions.SelectActionAction" text="Ahihi">
+        <action id="actions.SelectActionAction" class="actions.SelectActionAction"
+                text="Favorite Actions: Select Action">
             <keyboard-shortcut first-keystroke="ctrl 3" keymap="$default"/>
         </action>
     </actions>
