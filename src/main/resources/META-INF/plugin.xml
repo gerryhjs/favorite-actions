@@ -17,7 +17,9 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="actions.SelectActionAction" class="actions.SelectActionAction" text="Select Action"/>
+        <action id="actions.SelectActionAction" class="actions.SelectActionAction" text="Ahihi">
+            <keyboard-shortcut first-keystroke="ctrl 3" keymap="$default"/>
+        </action>
     </actions>
 
 </idea-plugin>
