@@ -22,7 +22,7 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="actions.SelectActionAction" class="actions.SelectActionAction"
+        <action id="actions.AddActionToFavoritesAction" class="actions.AddActionToFavoritesAction"
                 text="Favorite Actions: Select Action">
             <keyboard-shortcut first-keystroke="ctrl 3" keymap="$default"/>
         </action>

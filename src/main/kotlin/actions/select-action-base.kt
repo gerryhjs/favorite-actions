@@ -18,14 +18,21 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.util.ui.UIUtil
+import utils.IDELOG
 import java.util.*
 import javax.swing.SwingConstants
 
 
+
+fun selectIDEAction(e: AnActionEvent, callback: (AnAction) -> Unit) {
+  val selectActionBase = SelectActionBase(callback)
+  selectActionBase.actionPerformed(e)
+}
+
 /**
  * Base on GotoActionAction.java of Intellij
  */
-abstract class SelectActionBase : GotoActionBase(), DumbAware {
+private class SelectActionBase(val actionSelectedCallback: (AnAction) -> Unit) : GotoActionBase(), DumbAware {
 
   private fun getElementAction(element: Any?): AnAction? {
     if (element is GotoActionModel.MatchedValue) {
@@ -39,7 +46,7 @@ abstract class SelectActionBase : GotoActionBase(), DumbAware {
 
   private inner class SelectActionCallback() : GotoActionCallback<Any>() {
     override fun elementChosen(popup: ChooseByNamePopup, element: Any) {
-      getElementAction(element)?.let { actionSelected(it) }
+      getElementAction(element)?.let { actionSelectedCallback(it) }
     }
   }
 
@@ -83,10 +90,6 @@ abstract class SelectActionBase : GotoActionBase(), DumbAware {
         return getElementAction(value)?.templatePresentation?.description
       }
 
-      override fun closeForbidden(ok: Boolean): Boolean {
-        return true
-      }
-
       /**
        * Only display actions
        */
@@ -123,8 +126,6 @@ abstract class SelectActionBase : GotoActionBase(), DumbAware {
 
     return popup
   }
-
-  abstract fun actionSelected(action: AnAction)
 
   override fun requiresProject(): Boolean {
     return true

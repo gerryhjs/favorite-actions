@@ -1,5 +1,8 @@
 package utils
 
+import com.intellij.openapi.application.Application
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.WriteAction
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.SimpleColoredComponent
 import java.awt.BorderLayout
@@ -7,7 +10,7 @@ import java.util.logging.Logger
 import javax.swing.JList
 import javax.swing.JPanel
 
-fun LOG(anything: Any) {
+fun IDELOG(anything: Any) {
   Logger.getGlobal().info(anything.toString())
 }
 
@@ -51,4 +54,8 @@ fun cutName(input: String, list: JList<*>, panel: JPanel, nameComponent: SimpleC
   }
 
   return name.trim { it <= ' ' } + "..."
+}
+
+fun updateUI(updater: () -> Unit) {
+  ApplicationManager.getApplication().invokeLater(updater)
 }
