@@ -26,14 +26,14 @@ class FavoriteActionsService : PersistentStateComponent<FavoriteActionsService.D
   /**
    * Persistent
    */
-  class Data {
-    var actionIds: MutableList<ActionId> = mutableListOf()
+  data class Data(var actionIds: MutableList<ActionId>) {
+    constructor() : this(mutableListOf())
   }
 
   private val data = Data();
 
   override fun getState(): Data? {
-    return data
+    return data.copy()
   }
 
   override fun loadState(state: Data) {

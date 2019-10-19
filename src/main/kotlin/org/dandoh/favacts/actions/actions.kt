@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import org.dandoh.favacts.services.FavoriteActionsService
+import org.dandoh.favacts.utils.logIDE
 
 class AddActionToFavoritesAction : AnAction("Add Action to Favorites",
     "Select an IDE action and add it to favorite actions",
