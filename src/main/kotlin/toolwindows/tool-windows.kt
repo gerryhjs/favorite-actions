@@ -1,15 +1,10 @@
 package toolwindows
 
-import com.intellij.ide.actions.ApplyIntentionAction
-import com.intellij.ide.util.gotoByName.GotoActionModel
 import com.intellij.ide.util.gotoByName.GotoActionModel.defaultActionForeground
 import com.intellij.openapi.actionSystem.*
-import com.intellij.openapi.actionSystem.impl.ActionManagerImpl
-import com.intellij.openapi.keymap.KeymapUtil
 import com.intellij.openapi.keymap.KeymapUtil.getActiveKeymapShortcuts
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
-import com.intellij.openapi.util.text.StringUtil
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.SimpleColoredComponent
@@ -20,15 +15,15 @@ import com.intellij.ui.components.JBList
 import com.intellij.ui.content.ContentFactory
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UIUtil
+import utils.cutName
 import java.awt.BorderLayout
 import java.awt.Component
-import javax.swing.Icon
 import javax.swing.JList
 import javax.swing.JPanel
 import javax.swing.ListCellRenderer
-import kotlin.random.Random
 
 typealias ActionId = String
+
 
 class ActionRenderer : ListCellRenderer<ActionId> {
   override fun getListCellRendererComponent(list: JList<out ActionId>,
@@ -44,10 +39,10 @@ class ActionRenderer : ListCellRenderer<ActionId> {
     val nameComponent = SimpleColoredComponent()
     nameComponent.background = bg
     panel.add(nameComponent, BorderLayout.CENTER)
-    val str = anAction.templatePresentation.description ?: ""
+    val str = cutName(anAction.templatePresentation.description ?: "", list, panel, nameComponent)
     nameComponent.append(str, SimpleTextAttributes(STYLE_PLAIN, defaultActionForeground(isSelected, cellHasFocus, null)))
     val shortcuts = getActiveKeymapShortcuts(ActionManager.getInstance().getId(anAction)).getShortcuts()
-    panel.add(JBLabel(anAction.templatePresentation.icon), BorderLayout.EAST)
+    panel.add(JBLabel(anAction.templatePresentation.icon), BorderLayout.WEST)
     return panel
   }
 
@@ -55,17 +50,17 @@ class ActionRenderer : ListCellRenderer<ActionId> {
 
 class FavoriteActionsToolWindow() {
   val ui: SimpleToolWindowPanel
+  val list: JBList<ActionId>
 
   init {
     val actionManager = ActionManager.getInstance()
-    val actions = actionManager.getActionIds("")
+    val actionIds = actionManager.getActionIds("")
         .take(10)
         .filter { actionManager.getAction(it).templatePresentation.description != null }
-    val mList = JBList(actions)
-    val renderer = ActionRenderer()
-    mList.cellRenderer = renderer
+    list = JBList(actionIds)
+    list.cellRenderer = ActionRenderer()
     ui = SimpleToolWindowPanel(true, false)
-    ui.setContent(mList)
+    ui.setContent(list)
   }
 }
 
