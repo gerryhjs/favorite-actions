@@ -40,7 +40,6 @@ fun invokeAction(inputEvent: InputEvent, actionId: ActionId?) {
 }
 
 fun invokeAction(inputEvent: InputEvent, action: AnAction) {
-  val manager = ActionManager.getInstance()
   val context = DataManager.getInstance().getDataContext(inputEvent.component)
   val actionEvent = AnActionEvent.createFromAnAction(action, inputEvent, ActionPlaces.TOOLWINDOW_CONTENT, context)
   ActionUtil.performActionDumbAware(action, actionEvent)

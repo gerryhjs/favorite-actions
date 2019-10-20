@@ -1,17 +1,15 @@
 <idea-plugin>
-    <id>Favorite Actions</id>
     <name>Favorite Actions</name>
     <vendor email="dainhan605@gmail.com" url="https://github.com/dandoh">Dandoh</vendor>
+    <idea-version since-build="171.0000"/>
 
     <description>
-        Tired of remember keybindings but too lazy to search for the action? Let's have a collection of your favorite
-        IDE Actions
-        and choose from it.
+        This plugin allows you to have a collection of favorite IDE Actions and choose from it.
     </description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.platform</depends>
     <extensions defaultExtensionNs="com.intellij">
         <projectService id="FavoriteActionsService"
                         serviceImplementation="org.dandoh.favacts.services.FavoriteActionsService"/>
