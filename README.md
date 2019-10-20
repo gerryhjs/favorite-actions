@@ -1,5 +1,9 @@
 # Favorite Actions
 
+<div>
+	<img src="info/video.gif" alt="" style="">
+</div>
+
 This plugins add support for Favorite Actions.
 <br>
 You can add/remove actions to your project's favorite actions, and select action to run from the favorite actions list.
