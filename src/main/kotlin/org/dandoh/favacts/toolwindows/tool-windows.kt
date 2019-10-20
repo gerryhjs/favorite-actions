@@ -49,7 +49,7 @@ class ActionRenderer() : ListCellRenderer<ActionId> {
     val bg = UIUtil.getListBackground(isSelected, cellHasFocus)
 
     ui.content.isOpaque = true
-//    ui.content.background = bg
+    ui.content.background = bg
     ui.actionIcon.icon = action.templatePresentation.icon
     val shortcuts = KeymapUtil.getActiveKeymapShortcuts(actionId)
     val shortcutText = KeymapUtil.getPreferredShortcutText(shortcuts.shortcuts)
