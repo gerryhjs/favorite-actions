@@ -1,4 +1,5 @@
 <idea-plugin>
+    <id>org.dandoh.favacts</id>
     <name>Favorite Actions</name>
     <vendor email="dainhan605@gmail.com" url="https://github.com/dandoh">Dandoh</vendor>
     <idea-version since-build="171.0000"/>

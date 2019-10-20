@@ -3,6 +3,9 @@ import org.jetbrains.intellij.tasks.PatchPluginXmlTask
 group = "org.dandoh.favacts"
 version = "0.0.1"
 
+val pluginGroup = group
+val pluginVersion = version
+
 val isCI = !System.getenv("CI").isNullOrBlank()
 
 buildscript {
@@ -63,8 +66,8 @@ intellij {
 tasks.withType<PatchPluginXmlTask> {
   changeNotes(file("info/change-notes.html").readText())
   pluginDescription(file("info/description.html").readText())
-  version(version)
-  pluginId(group)
+  version(pluginVersion)
+  pluginId(pluginGroup)
 }
 
 repositories {
