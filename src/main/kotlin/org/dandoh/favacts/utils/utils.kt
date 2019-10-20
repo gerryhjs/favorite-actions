@@ -35,12 +35,12 @@ fun invokeAction(inputEvent: InputEvent, actionId: ActionId?) {
   val manager = ActionManager.getInstance()
   val action = manager.getAction(actionId)
   val context = DataManager.getInstance().getDataContext(inputEvent.component)
-  val actionEvent = AnActionEvent.createFromAnAction(action, inputEvent, ActionPlaces.TOOLWINDOW_CONTENT, context)
+  val actionEvent = AnActionEvent.createFromAnAction(action, inputEvent, ActionPlaces.UNKNOWN, context)
   ActionUtil.performActionDumbAware(action, actionEvent)
 }
 
 fun invokeAction(inputEvent: InputEvent, action: AnAction) {
   val context = DataManager.getInstance().getDataContext(inputEvent.component)
-  val actionEvent = AnActionEvent.createFromAnAction(action, inputEvent, ActionPlaces.TOOLWINDOW_CONTENT, context)
+  val actionEvent = AnActionEvent.createFromAnAction(action, inputEvent, ActionPlaces.UNKNOWN, context)
   ActionUtil.performActionDumbAware(action, actionEvent)
 }

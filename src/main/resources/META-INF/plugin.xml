@@ -16,7 +16,7 @@
         <toolWindow id="Favorite Actions"
                     icon="PluginIcons.ICON_HEART"
                     anchor="right"
-                    secondary="true"
+                    secondary="false"
                     factoryClass="org.dandoh.favacts.toolwindows.FavoriteActionsToolWindowFactory">
 
         </toolWindow>
