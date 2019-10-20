@@ -2,7 +2,7 @@
     <id>org.dandoh.favacts</id>
     <name>Favorite Actions</name>
     <vendor email="dainhan605@gmail.com" url="https://github.com/dandoh">Dandoh</vendor>
-    <idea-version since-build="171.0000"/>
+    <idea-version since-build="192.3000"/>
 
     <description>
         This plugin allows you to have a collection of favorite IDE Actions and choose from it.

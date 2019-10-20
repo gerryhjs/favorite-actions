@@ -47,6 +47,7 @@ class ActionRenderer() : ListCellRenderer<ActionId> {
     val action = ActionManager.getInstance().getAction(actionId)
     val ui = ActionItemForm()
     val bg = UIUtil.getListBackground(isSelected, cellHasFocus)
+    val fg = UIUtil.getListForeground(isSelected, cellHasFocus)
 
     ui.content.isOpaque = true
     ui.content.background = bg
@@ -55,8 +56,7 @@ class ActionRenderer() : ListCellRenderer<ActionId> {
     val shortcutText = KeymapUtil.getPreferredShortcutText(shortcuts.shortcuts)
     val str = action.templateText ?: ""
     ui.actionName.background = bg
-    ui.actionName.append(str, SimpleTextAttributes(STYLE_PLAIN,
-        defaultActionForeground(isSelected, cellHasFocus, null)))
+    ui.actionName.append(str, SimpleTextAttributes(STYLE_PLAIN, fg))
     val groupFg = if (isSelected) UIUtil.getListSelectionForeground(true) else UIUtil.getInactiveTextColor()
     if (shortcutText.isNotEmpty()) {
       val style = SimpleTextAttributes.STYLE_SMALLER or
