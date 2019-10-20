@@ -22,6 +22,7 @@ import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UIUtil
 import org.dandoh.favacts.services.ActionId
 import org.dandoh.favacts.services.FavoriteActionsService
+import org.dandoh.favacts.ui.FavoriteActionsToolWindowForm
 import org.dandoh.favacts.utils.cutName
 import org.dandoh.favacts.utils.updateUI
 import java.awt.BorderLayout
@@ -62,24 +63,22 @@ class ActionRenderer : ListCellRenderer<ActionId> {
 
 class FavoriteActionsToolWindow(project: Project) : FavoriteActionsService.Listener {
 
-
-  val toolWindowPanel: SimpleToolWindowPanel
-  private val actionList: JBList<ActionId>
+  val ui = FavoriteActionsToolWindowForm()
 
   init {
     val favoriteActionsService =
         ServiceManager.getService(project, FavoriteActionsService::class.java)
-    actionList = JBList(favoriteActionsService.getActionIds())
-        .apply { cellRenderer = ActionRenderer() }
-    toolWindowPanel = SimpleToolWindowPanel(true, false)
-    toolWindowPanel.setContent(actionList)
+    with (ui.actionList) {
+      cellRenderer = ActionRenderer()
+      model = CollectionListModel(favoriteActionsService.getActionIds())
+    }
     favoriteActionsService.addListener(this)
   }
 
   override fun actionListChange(newActionIds: List<ActionId>) {
     updateUI {
-      actionList.model = CollectionListModel(newActionIds)
-      actionList.revalidate()
+      ui.actionList.model = CollectionListModel(newActionIds)
+      ui.actionList.revalidate()
     }
   }
 }
@@ -92,7 +91,7 @@ class FavoriteActionsToolWindowFactory : ToolWindowFactory, DumbAware {
   override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
     val myToolWindow = FavoriteActionsToolWindow(project)
     val contentFactory = ContentFactory.SERVICE.getInstance()
-    val content = contentFactory.createContent(myToolWindow.toolWindowPanel, "", false)
+    val content = contentFactory.createContent(myToolWindow.ui.content, "", false)
     toolWindow.contentManager.addContent(content);
     when (toolWindow) {
       is ToolWindowEx -> {
