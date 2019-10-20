@@ -1,7 +1,7 @@
 import org.jetbrains.intellij.tasks.PatchPluginXmlTask
 
 group = "org.dandoh.favacts"
-version = "0.0.1"
+version = "0.0.2"
 
 val pluginGroup = group
 val pluginVersion = version
