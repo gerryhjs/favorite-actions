@@ -24,10 +24,12 @@ import com.intellij.ui.SimpleTextAttributes.STYLE_PLAIN
 import com.intellij.ui.content.ContentFactory
 import com.intellij.util.ui.UIUtil
 import com.jetbrains.rd.swing.mouseClicked
+import org.dandoh.favacts.actions.DeleteActionFromFavoritesAction
 import org.dandoh.favacts.services.ActionId
 import org.dandoh.favacts.services.FavoriteActionsService
 import org.dandoh.favacts.ui.ActionItemForm
 import org.dandoh.favacts.ui.FavoriteActionsToolWindowForm
+import org.dandoh.favacts.utils.invokeAction
 import org.dandoh.favacts.utils.logIDE
 import org.dandoh.favacts.utils.updateUI
 import java.awt.Component
@@ -47,7 +49,7 @@ class ActionRenderer() : ListCellRenderer<ActionId> {
     val bg = UIUtil.getListBackground(isSelected, cellHasFocus)
 
     ui.content.isOpaque = true
-    ui.content.background = bg
+//    ui.content.background = bg
     ui.actionIcon.icon = action.templatePresentation.icon
     val shortcuts = KeymapUtil.getActiveKeymapShortcuts(actionId)
     val shortcutText = KeymapUtil.getPreferredShortcutText(shortcuts.shortcuts)
@@ -70,7 +72,7 @@ class ActionRenderer() : ListCellRenderer<ActionId> {
 
 }
 
-class FavoriteActionsToolWindow(val project: Project) : FavoriteActionsService.Listener {
+class FavoriteActionsToolWindow(project: Project) : FavoriteActionsService.Listener {
 
   val ui = FavoriteActionsToolWindowForm()
 
@@ -84,15 +86,16 @@ class FavoriteActionsToolWindow(val project: Project) : FavoriteActionsService.L
 
     ui.actionList.addKeyListener(object : KeyAdapter() {
       override fun keyPressed(e: KeyEvent) {
-        if (e.keyCode == KeyEvent.VK_ENTER) {
-          invokeAction(e, ui.actionList.selectedValue)
+        when (e.keyCode) {
+          KeyEvent.VK_ENTER -> invokeAction(e, getSelectedActionId())
+          KeyEvent.VK_DELETE -> invokeAction(e, DeleteActionFromFavoritesAction())
         }
       }
     })
     ui.actionList.addMouseListener(object : MouseAdapter() {
       override fun mouseClicked(e: MouseEvent) {
         if (e.clickCount >= 2) {
-          invokeAction(e, ui.actionList.selectedValue)
+          invokeAction(e, getSelectedActionId())
         }
       }
     })
@@ -100,13 +103,10 @@ class FavoriteActionsToolWindow(val project: Project) : FavoriteActionsService.L
 
   }
 
-  private fun invokeAction(inputEvent: InputEvent, actionId: ActionId) {
-    val manager = ActionManager.getInstance()
-    val action = manager.getAction(actionId)
-    val context = DataManager.getInstance().getDataContext(inputEvent.component)
-    val actionEvent = AnActionEvent.createFromAnAction(action, inputEvent, ActionPlaces.TOOLWINDOW_CONTENT, context)
-    ActionUtil.performActionDumbAware(action, actionEvent)
+  fun getSelectedActionId(): ActionId? {
+    return ui.actionList.selectedValue
   }
+
 
   override fun actionListChange(newActionIds: List<ActionId>) {
     updateUI {
@@ -118,17 +118,22 @@ class FavoriteActionsToolWindow(val project: Project) : FavoriteActionsService.L
 
 
 class FavoriteActionsToolWindowFactory : ToolWindowFactory, DumbAware {
+  companion object {
+    var favoriteActionsToolWindow: FavoriteActionsToolWindow? = null
+  }
+
   /**
    * Only call once
    */
   override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
     val myToolWindow = FavoriteActionsToolWindow(project)
+    favoriteActionsToolWindow = myToolWindow
     val contentFactory = ContentFactory.SERVICE.getInstance()
     val content = contentFactory.createContent(myToolWindow.ui.content, "", false)
     toolWindow.contentManager.addContent(content);
     when (toolWindow) {
       is ToolWindowEx -> {
-        toolWindow.setTitleActions(AddActionToFavoritesAction())
+        toolWindow.setTitleActions(AddActionToFavoritesAction(), DeleteActionFromFavoritesAction())
       }
     }
   }

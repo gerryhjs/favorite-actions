@@ -19,16 +19,25 @@
                     icon="PluginIcons.ICON_HEART"
                     anchor="right"
                     secondary="true"
-                    factoryClass="org.dandoh.favacts.toolwindows.FavoriteActionsToolWindowFactory"/>
+                    factoryClass="org.dandoh.favacts.toolwindows.FavoriteActionsToolWindowFactory">
+
+        </toolWindow>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
         <action id="org.dandoh.favacts.actions.AddActionToFavoritesAction"
-                class="org.dandoh.favacts.actions.AddActionToFavoritesAction"
-                text="Favorite Actions: Select Action">
-            <keyboard-shortcut first-keystroke="ctrl 3" keymap="$default"/>
+                class="org.dandoh.favacts.actions.AddActionToFavoritesAction">
+            <keyboard-shortcut first-keystroke="alt i" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="meta shift i" keymap="Mac OS X"/>
         </action>
+        <action id="org.dandoh.favacts.actions.ShowFavoriteActionsAction"
+                class="org.dandoh.favacts.actions.ShowFavoriteActionsAction">
+            <keyboard-shortcut first-keystroke="control j" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="meta j" keymap="Mac OS X"/>
+        </action>
+
     </actions>
+
 
 </idea-plugin>

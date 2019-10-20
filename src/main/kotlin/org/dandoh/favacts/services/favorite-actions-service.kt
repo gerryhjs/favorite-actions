@@ -80,7 +80,11 @@ class FavoriteActionsService : PersistentStateComponent<FavoriteActionsService.D
         }.toMutableList()
 
     notifyListeners()
+  }
 
+  fun removeAction(actionId: ActionId) {
+    data.actionIds = data.actionIds.filter { it != actionId }.toMutableList()
+    notifyListeners()
   }
 
   fun getActionIds(): List<ActionId> = data.actionIds
