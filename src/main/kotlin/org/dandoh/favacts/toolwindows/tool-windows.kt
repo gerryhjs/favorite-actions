@@ -88,6 +88,7 @@ class FavoriteActionsToolWindow(project: Project) : FavoriteActionsService.Liste
       override fun keyPressed(e: KeyEvent) {
         when (e.keyCode) {
           KeyEvent.VK_ENTER -> invokeAction(e, getSelectedActionId())
+          KeyEvent.VK_INSERT -> invokeAction(e, AddActionToFavoritesAction())
           KeyEvent.VK_DELETE -> invokeAction(e, DeleteActionFromFavoritesAction())
         }
       }
@@ -133,7 +134,7 @@ class FavoriteActionsToolWindowFactory : ToolWindowFactory, DumbAware {
     toolWindow.contentManager.addContent(content);
     when (toolWindow) {
       is ToolWindowEx -> {
-        toolWindow.setTitleActions(AddActionToFavoritesAction(), DeleteActionFromFavoritesAction())
+//        toolWindow.setTitleActions(AddActionToFavoritesAction(), DeleteActionFromFavoritesAction())
       }
     }
   }

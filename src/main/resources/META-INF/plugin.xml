@@ -14,7 +14,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <projectService id="FavoriteActionsService"
                         serviceImplementation="org.dandoh.favacts.services.FavoriteActionsService"/>
-        <toolWindow id="Favorite Actions"
+        <toolWindow id="收藏操作"
                     icon="PluginIcons.ICON_HEART"
                     anchor="right"
                     secondary="false"
